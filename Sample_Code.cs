@@ -6,6 +6,7 @@ using UnityEngine;
 // Sapmple_UI1
 public class UIBattleHeroInfo : UIBase
 {
+    // 스탯 기본정보
     public enum EAddStat
     {
         Attack,
@@ -13,6 +14,7 @@ public class UIBattleHeroInfo : UIBase
         Health
     }
 
+    // 스탯 상태정보
     public enum EGetState
     {
         Positive,
@@ -89,6 +91,7 @@ public class UIBattleHeroInfo : UIBase
 
     }
 
+    // 스탯 갱신
     void RefreshStat()
     {
         // 공격력
