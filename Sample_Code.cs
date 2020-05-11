@@ -70,7 +70,7 @@ public class UIBattleHeroInfo : UIBase
         }
     }
 
-    // 셋팅
+    // 영웅 셋팅
     public void Set(UnitBattleActor actor)
     {
         ResetUI();
