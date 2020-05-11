@@ -319,10 +319,4 @@ public class TutorialHelper
         }
         return false;
     }
-
-    // 아이템 sort
-    static public void SortItemManager(ref List<ItemInfo> itemList, ItemInfo item)
-    {
-        itemList = itemList.OrderByDescending(x => x.GetID() == item.GetID()).ToList();
-    }
 }
