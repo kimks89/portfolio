@@ -31,19 +31,28 @@ public class SoundManager : MonoBehaviour
     // 플레이 사운드
     public void PlaySound(EBgmSound bgm, bool isLoop = true)
     {
-        // 예외처리
+        // 같은 타입 체크
         if (bgm == NowBgm)
         {
             Debug.Log("Same Sound Type:" + NowBgm.ToString());
             return;
         }
 
+        // Null 체크
+        if (BgmSpeaker == null)
+        {
+            Debug.Log("Speaker Null");
+            return;
+        }
+
+        // 사운드 리스트 체크
         if (BgmSoundList == null || BgmSoundList.Count <= 0)
         {
             Debug.Log("Empty SoundList");
             return;
         }
 
+        // 셋팅
         StopSound();
         NowBgm = bgm;
 
@@ -62,10 +71,24 @@ public class SoundManager : MonoBehaviour
     // 스탑 사운드(일시정지인지)
     public void StopSound(bool isPause = false)
     {
-        // Clip체크
-        if (BgmSpeaker.isPlaying == false || BgmSpeaker.clip == null)
+        // Null체크
+        if (BgmSpeaker == null)
         {
-            Debug.Log("Not Play Sound Or Empty Sound Clip");
+            Debug.Log("Speaker Null");
+            return;
+        }
+
+        // 플레이 체크
+        if (BgmSpeaker.isPlaying == false)
+        {
+            Debug.Log("Speaker Null Or Not Play Sound");
+            return;
+        }
+
+        // Clip체크
+        if (BgmSpeaker.clip == null)
+        {
+            Debug.Log("Empty Sound Clip");
             return;
         }
 
@@ -83,6 +106,12 @@ public class SoundManager : MonoBehaviour
     // 볼륨조절
     public void SetVolume(float volume)
     {
+        if (BgmSpeaker == null)
+        {
+            Debug.Log("Speaker Null");
+            return 0f;
+        }
+
         BgmSpeaker.volume = volume;
     }
 
