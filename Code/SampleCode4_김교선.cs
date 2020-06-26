@@ -95,4 +95,100 @@ public class TutorialHelper
     {
         return nowState == state;
     }
+	
+	// 이전 튜토리얼 체크
+	static public bool CheckPrev(TutorialInfo info)
+    {
+        string condition = info.GetStartData().GetPREV_TUTORIAL();
+        if (string.IsNullOrEmpty(condition) == false)
+        {
+            DataTutorial tutorialData = DataTutorial.GetByEnumID(condition);
+            if (tutorialData != null)
+            {
+                ETutorialGroup group = (ETutorialGroup)tutorialData.GetGROUP_TYPE();
+                if (dicTutorialInfo.ContainsKey(group))
+                {
+                    return dicTutorialInfo[group].IsComplete;
+                }
+            }
+        }
+        return true;
+    }
+	
+	// 튜토리얼 선행 조건 체크
+    static public bool CheckCondition(TutorialInfo info)
+    {
+        ETutorialCondition conditionType = (ETutorialCondition)info.GetStartData().GetCONDITION_TYPE();
+        string conditionValue = info.GetStartData().GetCONDITION_VALUE();
+        switch(conditionType)
+        {
+            case ETutorialCondition.EnterDungeon: // 던전 입장시
+                DataDungeon enterData = DataDungeon.GetByEnumID(conditionValue);
+                if (enterData != null && BattleInfo != null)
+                {
+                    return enterData == BattleInfo.DataDungeon;
+                }
+                break;
+            case ETutorialCondition.ClearDungeon: // 던전 클리어
+                DataDungeon clearData = DataDungeon.GetByEnumID(conditionValue);
+                if(clearData != null)
+                {
+                    return DungeonHelper.GetDungeonRating(clearData) > 0;
+                }
+                break;
+            case ETutorialCondition.ClearTutorial: // 튜토리얼 클리어
+                DataTutorial tutorialData = DataTutorial.GetByEnumID(conditionValue);
+                if(tutorialData != null)
+                {
+                    ETutorialGroup group = (ETutorialGroup)tutorialData.GetGROUP_TYPE();
+                    return IsClearByGroup(group);
+                }
+                break;
+            case ETutorialCondition.ClearCompletion: // 컴플리션 클리어
+                DataCompletion completionData = DataCompletion.GetByEnumID(conditionValue);
+                if (completionData != null)
+                {
+                    CompletionInfo completeInfo = CompletionHelper.GetMyCompletion(completionData.GetID());
+                    if (completeInfo != null)
+                    {
+                        return CompletionHelper.IsComplete(completeInfo);
+                    }
+                }
+                break;
+            case ETutorialCondition.None:
+                return true;
+        }
+        return false;
+    }
+	
+	// 서버로 보낼 String ID값 가져오기
+    static public string GetSendServerID(DataTutorial data)
+    {
+        string sendID = string.Empty;
+        if(data != null)
+        {
+            // 같이 저장해야하는 특수한 경우
+            if (string.IsNullOrEmpty(data.GetCONNECT_SAVE()) == false)
+            {
+                string sendValues = "";
+                string[] saveArray = data.GetCONNECT_SAVE().Split(';');
+                for (int i = 0; i < saveArray.Length; i++)
+                {
+                    string id = saveArray[i];
+                    DataTutorial beforeData = DataTutorial.GetByEnumID(id);
+                    if (sendValues.Length > 0)
+                    {
+                        sendValues += ",";
+                    }
+                    sendValues += beforeData.GetGROUP_TYPE();
+                }
+                sendID = sendValues + "," + data.GetGROUP_TYPE().ToString();
+            }
+            else
+            {
+                sendID = data.GetGROUP_TYPE().ToString();
+            }
+        }
+        return sendID;
+    }
 }
