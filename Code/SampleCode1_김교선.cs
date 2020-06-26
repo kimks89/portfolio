@@ -68,8 +68,8 @@ public class UIBattleHeroInfo : UIBase
             followImg.fillAmount = 0f;
         }
     }
-	
-	// 정보 갱신
+
+    // 정보 갱신
     void ResetInfo()
     {
         if (nowUnit == null)
@@ -105,7 +105,7 @@ public class UIBattleHeroInfo : UIBase
 
     }
 
-	// 스탯갱신
+    // 스탯갱신
     void RefreshStat()
     {
         // 공격력

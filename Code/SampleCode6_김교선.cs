@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UISliderAnimate : MonoBehaviour
 {
-	[SerializeField]
+    [SerializeField]
     private float SpeedTime; // 속도조절
 
     private UISlider uiSlider; // slider컴퍼넌트
@@ -16,7 +16,7 @@ public class UISliderAnimate : MonoBehaviour
 
     void Awake()
     {
-		// slider컴퍼넌트 가져오기
+        // slider컴퍼넌트 가져오기
         if (uiSlider == null)
         {
             uiSlider = GetComponent<UISlider>();
@@ -31,21 +31,21 @@ public class UISliderAnimate : MonoBehaviour
             return;
         }
 
-		// slider 증가
+        // slider 증가
         if (elaspedTime < SpeedTime)
         {
             elaspedTime += Time.deltaTime;
             uiSlider.value = Mathf.Lerp(startValue, targetValue, elaspedTime / SpeedTime);
         }
 
-		// slider 멈춤
+        // slider 멈춤
         if (uiSlider.value >= 1.0f || elaspedTime >= SpeedTime)
         {
             StopSlider();
         }
     }
 
-	// slider셋팅(시작,최대,목표값)
+    // slider셋팅(시작,최대,목표값)
     void SetValue(float start, float max, float target)
     {
         float startPointValue = start / max;
@@ -62,14 +62,14 @@ public class UISliderAnimate : MonoBehaviour
         targetValue = target / max;
     }
 
-	// slider 시작
+    // slider 시작
     public void PlaySlider()
     {
         isEnable = true;
         elaspedTime = 0f;
     }
 
-	// slider 멈출
+    // slider 멈출
     public void StopSlider()
     {
         isEnable = false;

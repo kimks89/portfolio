@@ -54,48 +54,48 @@ public class ContentsEventGroup
             EventInfoList.Add(eventInfo);
         }
     }
-	
-	// 기본값 셋팅
-	private void ConstructDefault(Hashtable hashTable)
+
+    // 기본값 셋팅
+    private void ConstructDefault(Hashtable hashTable)
     {
         Hashtable hash = hashTable["completions"] as Hashtable;
 
         if (hash == null)
-		{
+        {
             return;
-		}
+        }
 
         foreach (EContentsEventReward eventRewardType in Enum.GetValues(typeof(EContentsEventReward)))
         {
             if (eventRewardType == EContentsEventReward.None)
-			{
+            {
                 continue;
-			}
+            }
 
             string key = eventRewardType.ToString();
             string index = ((int)eventRewardType).ToString();
 
             if (string.IsNullOrEmpty(key) || hash.ContainsKey(index) == false)
-			{
+            {
                 continue;
-			}
+            }
 
             ArrayList arrayData = (ArrayList)hash[index];
             AddEventInfo(arrayData, eventRewardType, EDayCountOfWeek.None);
         }
     }
-	
-	// 이번테 정보 가져오기
-	public List<ContentsEventInfo> GetEventListByDetail(EContentsEventReward detail)
+
+    // 이번테 정보 가져오기
+    public List<ContentsEventInfo> GetEventListByDetail(EContentsEventReward detail)
     {
         List<ContentsEventInfo> allList = new List<ContentsEventInfo>();
-		
-        for(int i=0; i< EventInfoList.Count; i++)
+
+        for (int i = 0; i < EventInfoList.Count; i++)
         {
             if (EventInfoList[i].DetailType == detail)
-			{
+            {
                 allList.Add(EventInfoList[i]);
-			}
+            }
         }
         return allList;
     }
@@ -107,7 +107,7 @@ public class ContentsEventGroup
         {
             return true;
         }
-        
+
         return false;
     }
 }
@@ -115,9 +115,9 @@ public class ContentsEventGroup
 // 컨텐츠 이벤트 Helper
 static public class ContentsEventHelper
 {
-	static private Dictionary<EContentsEvent, ContentsEventGroup> dicEventGroup = new Dictionary<EContentsEvent, ContentsEventGroup>();
-	
-	// Set Complete User Info(유저 완료정보)
+    static private Dictionary<EContentsEvent, ContentsEventGroup> dicEventGroup = new Dictionary<EContentsEvent, ContentsEventGroup>();
+
+    // Set Complete User Info(유저 완료정보)
     static public void SetUserComplete(Hashtable hashTable)
     {
         ArrayList arrList = (ArrayList)hashTable["completionList"];
@@ -146,18 +146,18 @@ static public class ContentsEventHelper
                     DateTime endTime = DateTime.MinValue;
                     int dayCount = 0;
 
-                    if (infoHash.ContainsKey("startTime")) 
-					{
+                    if (infoHash.ContainsKey("startTime"))
+                    {
                         startTime = DateTime.Parse(infoHash["startTime"] as string);
-					}
-                    if (infoHash.ContainsKey("endTime")) 
-					{
+                    }
+                    if (infoHash.ContainsKey("endTime"))
+                    {
                         endTime = DateTime.Parse(infoHash["endTime"] as string);
-					}
+                    }
                     if (infoHash.ContainsKey("day"))
-					{
+                    {
                         dayCount = int.Parse(infoHash["day"].ToString());
-					}
+                    }
 
                     group.SetUserEventStartTime(startTime);
                     group.SetUserEventEndTime(endTime);
@@ -166,14 +166,14 @@ static public class ContentsEventHelper
             }
         }
     }
-	
-	// Set Contents Group(그룹 및 미션키로 갯수만 셋팅)
+
+    // Set Contents Group(그룹 및 미션키로 갯수만 셋팅)
     static public void SetGroup(ArrayList arrList, Hashtable origin)
     {
         if (arrList == null)
-		{
+        {
             return;
-		}
+        }
 
         dicEventGroup.Clear();
 
@@ -184,7 +184,7 @@ static public class ContentsEventHelper
             EContentsEvent contentsType = (EContentsEvent)contentsID;
             ContentsEventGroup group = new ContentsEventGroup(headData, origin);
 
-            switch(contentsType) // 타입 형태가 다르면 추가하여 셋팅할것
+            switch (contentsType) // 타입 형태가 다르면 추가하여 셋팅할것
             {
                 case EContentsEvent.Attendance:
                     AttendanceHelper.AddGroup(group);
@@ -206,9 +206,9 @@ static public class ContentsEventHelper
     static public void SetMission(Hashtable data)
     {
         if (data == null)
-		{
+        {
             return;
-		}
+        }
 
         for (int i = 0; i < AllEventGroupList.Count; i++)
         {

@@ -95,9 +95,9 @@ public class TutorialHelper
     {
         return nowState == state;
     }
-	
-	// 이전 튜토리얼 체크
-	static public bool CheckPrev(TutorialInfo info)
+
+    // 이전 튜토리얼 체크
+    static public bool CheckPrev(TutorialInfo info)
     {
         string condition = info.GetStartData().GetPREV_TUTORIAL();
         if (string.IsNullOrEmpty(condition) == false)
@@ -114,13 +114,13 @@ public class TutorialHelper
         }
         return true;
     }
-	
-	// 튜토리얼 선행 조건 체크
+
+    // 튜토리얼 선행 조건 체크
     static public bool CheckCondition(TutorialInfo info)
     {
         ETutorialCondition conditionType = (ETutorialCondition)info.GetStartData().GetCONDITION_TYPE();
         string conditionValue = info.GetStartData().GetCONDITION_VALUE();
-        switch(conditionType)
+        switch (conditionType)
         {
             case ETutorialCondition.EnterDungeon: // 던전 입장시
                 DataDungeon enterData = DataDungeon.GetByEnumID(conditionValue);
@@ -131,14 +131,14 @@ public class TutorialHelper
                 break;
             case ETutorialCondition.ClearDungeon: // 던전 클리어
                 DataDungeon clearData = DataDungeon.GetByEnumID(conditionValue);
-                if(clearData != null)
+                if (clearData != null)
                 {
                     return DungeonHelper.GetDungeonRating(clearData) > 0;
                 }
                 break;
             case ETutorialCondition.ClearTutorial: // 튜토리얼 클리어
                 DataTutorial tutorialData = DataTutorial.GetByEnumID(conditionValue);
-                if(tutorialData != null)
+                if (tutorialData != null)
                 {
                     ETutorialGroup group = (ETutorialGroup)tutorialData.GetGROUP_TYPE();
                     return IsClearByGroup(group);
@@ -160,12 +160,12 @@ public class TutorialHelper
         }
         return false;
     }
-	
-	// 서버로 보낼 String ID값 가져오기
+
+    // 서버로 보낼 String ID값 가져오기
     static public string GetSendServerID(DataTutorial data)
     {
         string sendID = string.Empty;
-        if(data != null)
+        if (data != null)
         {
             // 같이 저장해야하는 특수한 경우
             if (string.IsNullOrEmpty(data.GetCONNECT_SAVE()) == false)

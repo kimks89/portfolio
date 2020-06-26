@@ -23,7 +23,7 @@ public class UIGuildItem : UIBase
             Debug.Log("Data is Null");
             return;
         }
-        
+
         _itemList.ClearItems();
         _labelTitle.text = data.GetName();
         List<RewardInfo> rewardList = GetAttendRewardList(data);

@@ -34,8 +34,8 @@ public class UIDialogChargeShop : ManualSingletonUIDialog<UIDialogChargeShop>
 
     private ShopHelper.ChargeType nowType = ShopHelper.ChargeType.None;
     private List<UIBaseShopItem> chargeItemList = new List<UIBaseShopItem>();
-    private ItemListType itemListType = ItemListType.Normal;    
-	
+    private ItemListType itemListType = ItemListType.Normal;
+
     protected override void OnCreate()
     {
         base.OnCreate();
@@ -52,7 +52,7 @@ public class UIDialogChargeShop : ManualSingletonUIDialog<UIDialogChargeShop>
             return;
         }
 
-        SoundManager.Instance.PlayOneShot(SoundManager.Sound.UI, SoundNames.FX.COMMON_CONTENTS_OPEN_POPUP, Settings.Game.FxVolume);        
+        SoundManager.Instance.PlayOneShot(SoundManager.Sound.UI, SoundNames.FX.COMMON_CONTENTS_OPEN_POPUP, Settings.Game.FxVolume);
     }
 
     private void OnEnable()
@@ -75,10 +75,10 @@ public class UIDialogChargeShop : ManualSingletonUIDialog<UIDialogChargeShop>
         base.OnHide();
 
         switch (SceneManager.Instance.GetCurrentState())
-        {            
+        {
             case SceneManager.State.AIR_LOBBY:
                 LogHelper.StartLogEvent("AirLobby");
-                break;                     
+                break;
             case SceneManager.State.NATION_MAP:
                 LogHelper.StartLogEvent("countrymap");
                 break;
@@ -93,11 +93,11 @@ public class UIDialogChargeShop : ManualSingletonUIDialog<UIDialogChargeShop>
 
     // 충전소 셋팅
     public void SetChargeShopTap(ShopHelper.ChargeType type, EGoodsType goGoods = EGoodsType.None)
-    {        
-        if (nowType == type) 
-		{
+    {
+        if (nowType == type)
+        {
             return;
-		}
+        }
 
         for (int i = 0; i < _btnTaps.Length; i++)
         {
@@ -133,23 +133,23 @@ public class UIDialogChargeShop : ManualSingletonUIDialog<UIDialogChargeShop>
     void SetCharageShop()
     {
         ResetClear();
-		SetCharageShopSlot(ShopHelper.GetRechargeShopList(nowType));
+        SetCharageShopSlot(ShopHelper.GetRechargeShopList(nowType));
     }
 
-	// 슬롯셋팅
+    // 슬롯셋팅
     void SetCharageShopSlot(List<DataShop> _listShop)
     {
         int addCount = 0;
         itemListType = GetItemListType(nowType);
         for (int i = 0; i < _listShop.Count; i++)
         {
-            if(itemListType == ItemListType.Ticket)
+            if (itemListType == ItemListType.Ticket)
             {
                 EGoodsType goods = (EGoodsType)_listShop[i].GetGOODS_TYPE();
                 if (ItemHelper.IsOpenGoods(goods) == false) // 오픈상품 체크
-				{
+                {
                     continue;
-				}
+                }
             }
             addCount++;
             GameObject slot = _itemList[(int)itemListType].AddItem(i.ToString());
@@ -158,11 +158,11 @@ public class UIDialogChargeShop : ManualSingletonUIDialog<UIDialogChargeShop>
             chargeItemList.Add(item);
         }
         _itemList[(int)itemListType].OnReposition();
-        _stateItemList.SetActive(itemListType.ToString());        
+        _stateItemList.SetActive(itemListType.ToString());
         _labelEmpty.cachedGameObject.SetActive(addCount <= 0);
     }
 
-	// 아이템 정보리셋
+    // 아이템 정보리셋
     void RefreshShopItems()
     {
         for (int i = 0; i < chargeItemList.Count; i++)
@@ -175,17 +175,17 @@ public class UIDialogChargeShop : ManualSingletonUIDialog<UIDialogChargeShop>
     void SetSelectItem(EGoodsType type)
     {
         if (type == EGoodsType.None || itemListType == ItemListType.Normal)
-		{
+        {
             return;
-		}
+        }
 
         int selectCount = 0;
-        for (int i = 0; i< chargeItemList.Count; i++)
+        for (int i = 0; i < chargeItemList.Count; i++)
         {
-            if (chargeItemList[i].SetSelected(type)) 
-			{
+            if (chargeItemList[i].SetSelected(type))
+            {
                 selectCount = i;
-			}
+            }
         }
         _itemList[(int)itemListType].MoveIndex(selectCount);
     }
@@ -193,7 +193,7 @@ public class UIDialogChargeShop : ManualSingletonUIDialog<UIDialogChargeShop>
     // 현재 탭에 따른 아이템리스트 타입
     ItemListType GetItemListType(ShopHelper.ChargeType type)
     {
-        if(type == ShopHelper.ChargeType.Ticket)
+        if (type == ShopHelper.ChargeType.Ticket)
         {
             return ItemListType.Ticket;
         }
@@ -219,13 +219,13 @@ public class UIDialogChargeShop : ManualSingletonUIDialog<UIDialogChargeShop>
     // 탭
     public void OnClickTap(GameObject go)
     {
-		if (int.TryParse(go.name, out int index))
+        if (int.TryParse(go.name, out int index))
         {
             SetChargeShopTap((ShopHelper.ChargeType)index);
         }
     }
 
-	// 패키지 상점 열기
+    // 패키지 상점 열기
     public void OnClickPackageShop()
     {
         ShopHelper.CallPackageShop(EPackageRecommandState.None, false);

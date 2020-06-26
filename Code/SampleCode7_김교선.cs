@@ -22,17 +22,17 @@ public class UIDialogBuyPackage : SingletonUIDialog<UIDialogBuyPackage>
         type = UIDialogType.BuyPackage;
     }
 
-	// 외부에서 값 받기
+    // 외부에서 값 받기
     public void SetInfo(DataPackage package, DataPackageShop shop, UIEventMainSlotItemDetail mainSlot, Action<int, GameObject> callBack)
     {
-		_labelTitle.text = Localization.Get("UI_LABEL_TITLE_BUY_PACKAGE");
+        _labelTitle.text = Localization.Get("UI_LABEL_TITLE_BUY_PACKAGE");
         _labelDesc.text = shop.GetNAME() + Localization.Get("UI_LABEL_QUESTION_AT_BUY_TYPE1");
         slotDetail.SetData(shop, mainSlot.EndDay, mainSlot.SpanRebuyTime, mainSlot.DateRebuyTime, mainSlot.ImageName, mainSlot.LimitType, mainSlot.BuyCount);
         slotDetail.OnClickCallback = callBack;
         SetReward(package, shop);
     }
 
-	// 보상 셋팅
+    // 보상 셋팅
     public void SetReward(DataPackage package, DataPackageShop shop)
     {
         if (package == null || shop == null)
@@ -101,7 +101,7 @@ public class UIDialogBuyPackage : SingletonUIDialog<UIDialogBuyPackage>
         return infos;
     }
 
-	// 창 닫기
+    // 창 닫기
     public void OnClickClose()
     {
         Hide();
