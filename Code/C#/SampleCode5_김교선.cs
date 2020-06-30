@@ -21,6 +21,7 @@ public class ManageBgmSound
     public AudioClip SoundClip;
 }
 
+// 사운드 관련 클래스(샘플소스코드)
 public class SoundManager : MonoBehaviour
 {
     public AudioSource BgmSpeaker;

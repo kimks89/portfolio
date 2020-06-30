@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 영웅정보창 UI관련 클래스(샘플소스코드)
 public class UIBattleHeroInfo : UIBase
 {
     // 스탯enum

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 운영툴로 부터 이벤트 미션들을 한 그룹으로 만드는 클래스
+// 운영툴로 부터 이벤트 미션들을 한 그룹으로 만드는 클래스(샘플소스코드)
 public class ContentsEventGroup
 {
     public string Name { get; private set; }                    // 이벤트 이름

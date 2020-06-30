@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// UI슬라이드 연출관련(샘플소스코드)
 public class UISliderAnimate : MonoBehaviour
 {
     [SerializeField]

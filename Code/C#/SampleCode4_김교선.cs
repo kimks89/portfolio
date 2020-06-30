@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 튜토리얼 관련 클래스(샘플소스코드)
 public class TutorialHelper
 {
     public enum EState

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+
+// 상점 관련UI 클래스(샘플소스코드)
 public class UIDialogChargeShop : ManualSingletonUIDialog<UIDialogChargeShop>
 {
     enum ItemListType

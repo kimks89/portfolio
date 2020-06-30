@@ -7,6 +7,7 @@ USING_NS_CC;
 
 using namespace CocosDenshion;
 
+// 게임메인부분(샘플소스코드)
 Scene* GameLayer::createScene()
 {
 

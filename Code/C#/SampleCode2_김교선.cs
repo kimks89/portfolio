@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 보상 아이템 관련UI 클래스(샘플소스코드)
 public class UIGuildItem : UIBase
 {
     [SerializeField]
